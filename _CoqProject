@@ -1,0 +1,6 @@
+-R theories MathCompKummer
+-arg -w -arg -notation-overridden
+theories/divn_carry.v
+theories/logn_bin.v
+theories/logn_bin_extra.v
+theories/digit_sum.v

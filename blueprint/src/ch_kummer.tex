@@ -1,0 +1,41 @@
+% Chapter 4: Kummer's theorem
+
+\begin{theorem}[Kummer's theorem]
+  \label{thm:kummer}
+  \uses{lem:logn_bin_via_sums, lem:sum_divn_add_carry}
+  \rocq{MathCompKummer.logn_bin.kummer}
+  Let $p$ be prime and $0 \leq k \leq n$. Then
+  \[
+    v_p\!\binom{n}{k} = \sum_{i=1}^{b} \carry(p, i, k, n-k),
+  \]
+  for any $b > \texttt{trunc\_log}(p, n)$.
+  Equivalently, the $p$-adic valuation of $\binom{n}{k}$ equals
+  the number of carries when adding $k$ and $n-k$ in base~$p$.
+  \begin{proof}
+    By Lemma~\ref{lem:logn_bin_via_sums},
+    \[
+      v_p\!\binom{n}{k}
+      = \sum_{i=1}^{b} \left\lfloor \frac{n}{p^i} \right\rfloor
+      - \sum_{i=1}^{b} \left\lfloor \frac{k}{p^i} \right\rfloor
+      - \sum_{i=1}^{b} \left\lfloor \frac{n-k}{p^i} \right\rfloor.
+    \]
+    By Lemma~\ref{lem:sum_divn_add_carry}, the difference of the
+    three Legendre sums equals the carry count.
+  \end{proof}
+\end{theorem}
+
+\begin{theorem}[Kummer's theorem — cardinality form]
+  \label{thm:kummer_card}
+  \uses{thm:kummer}
+  \rocq{MathCompKummer.logn_bin.kummer_card}
+  For prime $p$, $k \leq n$, and $b > \texttt{trunc\_log}(p, n)$,
+  \[
+    v_p\!\binom{n}{k}
+    = \#\bigl\{i \in \{1, \ldots, b\}
+      \;\big|\; \carry(p, i, k, n-k) \bigr\}.
+  \]
+  \begin{proof}
+    Since $\carry$ is boolean, summing it over $\{1, \ldots, b\}$
+    equals the cardinality of the set where it holds.
+  \end{proof}
+\end{theorem}

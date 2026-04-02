@@ -1,0 +1,9 @@
+.theorem_thmwrapper,
+.lemma_thmwrapper,
+.definition_thmwrapper,
+.corollary_thmwrapper,
+.proposition_thmwrapper {
+  border-left: 3px solid #888;
+  padding-left: 1em;
+  margin: 1em 0;
+}

@@ -1,0 +1,114 @@
+% Chapter 2: Carry arithmetic
+
+\section{The floor-division addition identity}
+
+\begin{lemma}[Floor-division addition identity]
+  \label{lem:divn_add}
+  \uses{lem:divn_eq, lem:ltn_mod, lem:divn_small, lem:divnMDl}
+  \rocq{MathCompKummer.divn_carry.divn_add}
+  Let $m > 0$. Then for all $a, b \in \NN$,
+  \[
+    \left\lfloor \frac{a+b}{m} \right\rfloor
+    = \left\lfloor \frac{a}{m} \right\rfloor
+    + \left\lfloor \frac{b}{m} \right\rfloor
+    + [m \leq (a \bmod m) + (b \bmod m)]
+  \]
+  where $[\cdot]$ denotes the Iverson bracket.
+  \begin{proof}
+    Write $a = qm + r$ and $b = q'm + r'$ with $0 \leq r, r' < m$.
+    Then $a + b = (q + q')m + (r + r')$. Since $0 \leq r + r' < 2m$,
+    we have $\lfloor(r+r')/m\rfloor \in \{0, 1\}$, and it equals $1$
+    exactly when $r + r' \geq m$.
+  \end{proof}
+\end{lemma}
+
+\begin{lemma}[Modular addition]
+  \label{lem:modn_add}
+  \uses{lem:divn_eq, lem:modnMDl}
+  \rocq{MathCompKummer.divn_carry.modn_add}
+  For $m > 0$,
+  \[
+    (a + b) \bmod m = ((a \bmod m) + (b \bmod m)) \bmod m.
+  \]
+\end{lemma}
+
+\begin{lemma}[Sum of remainders bound]
+  \label{lem:divn_add_mod_bound}
+  \uses{lem:ltn_mod}
+  \rocq{MathCompKummer.divn_carry.divn_add_mod_bound}
+  For $m > 0$,
+  \[
+    (a \bmod m) + (b \bmod m) < 2m.
+  \]
+\end{lemma}
+
+\begin{lemma}[Division of sum of remainders]
+  \label{lem:divn_add_mod_cases}
+  \uses{lem:divn_add_mod_bound, lem:divn_small}
+  \rocq{MathCompKummer.divn_carry.divn_add_mod_cases}
+  For $m > 0$,
+  \[
+    \left\lfloor \frac{(a \bmod m) + (b \bmod m)}{m} \right\rfloor \leq 1.
+  \]
+\end{lemma}
+
+\begin{lemma}[Carry is a boolean division]
+  \label{lem:carry_is_div}
+  \uses{lem:divn_add_mod_cases}
+  \rocq{MathCompKummer.divn_carry.carry_is_div}
+  For $m > 0$,
+  \[
+    [m \leq (a \bmod m) + (b \bmod m)]
+    = \left\lfloor \frac{(a \bmod m) + (b \bmod m)}{m} \right\rfloor.
+  \]
+  (The right-hand side is $0$ or $1$.)
+\end{lemma}
+
+\section{The carry predicate}
+
+\begin{definition}[Carry]
+  \label{def:carry}
+  \uses{def:binomial}
+  \rocq{MathCompKummer.divn_carry.carry}
+  For a base $p$, position $i$, and natural numbers $a, b$, define
+  \[
+    \carry(p, i, a, b) \;:=\; [p^i \leq (a \bmod p^i) + (b \bmod p^i)].
+  \]
+  This is $1$ (true) when adding $a$ and $b$ produces a carry at
+  position $i$ in base $p$.
+\end{definition}
+
+\begin{lemma}[Division with carry]
+  \label{lem:divn_add_carry}
+  \uses{lem:divn_add, def:carry}
+  \rocq{MathCompKummer.divn_carry.divn_add_carry}
+  For $p > 0$ and $k \leq n$,
+  \[
+    \left\lfloor \frac{n}{p^i} \right\rfloor
+    = \left\lfloor \frac{k}{p^i} \right\rfloor
+    + \left\lfloor \frac{n-k}{p^i} \right\rfloor
+    + \carry(p, i, k, n-k).
+  \]
+  \begin{proof}
+    Write $n = k + (n-k)$ and apply Lemma~\ref{lem:divn_add} with $m = p^i$.
+  \end{proof}
+\end{lemma}
+
+\section{Summed carry-count identity}
+
+\begin{lemma}[Summed carry-count identity]
+  \label{lem:sum_divn_add_carry}
+  \uses{lem:divn_add_carry}
+  \rocq{MathCompKummer.divn_carry.sum_divn_add_carry}
+  For prime $p$, $k \leq n$, and $b > \texttt{trunc\_log}(p, n)$,
+  \[
+    \sum_{i=1}^{b} \left\lfloor \frac{n}{p^i} \right\rfloor
+    = \sum_{i=1}^{b} \left\lfloor \frac{k}{p^i} \right\rfloor
+    + \sum_{i=1}^{b} \left\lfloor \frac{n-k}{p^i} \right\rfloor
+    + \sum_{i=1}^{b} \carry(p, i, k, n-k).
+  \]
+  \begin{proof}
+    Apply Lemma~\ref{lem:divn_add_carry} pointwise for each
+    $i \in \{1, \ldots, b\}$ and use linearity of summation.
+  \end{proof}
+\end{lemma}

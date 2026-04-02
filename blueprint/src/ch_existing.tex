@@ -1,0 +1,165 @@
+% Chapter 1: Existing MathComp infrastructure
+% These nodes document the MathComp API we depend on.
+% They are all marked \rocqok from the start and serve as
+% roots of the dependency graph.
+
+\section{Prime and p-adic valuation}
+
+\begin{definition}[p-adic valuation]
+  \label{def:logn}
+  \rocq{mathcomp.boot.prime.logn}
+  \rocqok
+  For a prime $p$ and a natural number $m$, $\logn(p, m)$ is the
+  largest $k$ such that $p^k$ divides $m$. In MathComp this is
+  \texttt{logn p m}.
+\end{definition}
+
+\begin{definition}[Truncated logarithm]
+  \label{def:trunc_log}
+  \rocq{mathcomp.boot.prime.trunc_log}
+  \rocqok
+  For $p \geq 2$ and $n \in \NN$, $\texttt{trunc\_log}(p, n)$ is
+  the largest $k$ such that $p^k \leq n$.
+\end{definition}
+
+\begin{lemma}[Multiplicativity of logn]
+  \label{lem:lognM}
+  \uses{def:logn}
+  \rocq{mathcomp.boot.prime.lognM}
+  \rocqok
+  For prime $p$ and $m, n > 0$,
+  \[
+    \logn(p, m \cdot n) = \logn(p, m) + \logn(p, n).
+  \]
+\end{lemma}
+
+\begin{lemma}[logn of prime powers]
+  \label{lem:pfactorK}
+  \uses{def:logn}
+  \rocq{mathcomp.boot.prime.pfactorK}
+  \rocqok
+  For prime $p$,
+  \[
+    \logn(p, p^n) = n.
+  \]
+\end{lemma}
+
+\begin{lemma}[Truncated log bounds]
+  \label{lem:trunc_log_bounds}
+  \uses{def:trunc_log}
+  \rocq{mathcomp.boot.prime.trunc_log_bounds}
+  \rocqok
+  For $p \geq 2$ and $n > 0$,
+  \[
+    p^{\texttt{trunc\_log}(p, n)} \leq n < p^{\texttt{trunc\_log}(p, n) + 1}.
+  \]
+\end{lemma}
+
+\begin{lemma}[Truncated log upper bound]
+  \label{lem:trunc_log_ltn}
+  \uses{def:trunc_log}
+  \rocq{mathcomp.boot.prime.trunc_log_ltn}
+  \rocqok
+  For $p \geq 2$ and $n > 0$,
+  \[
+    n < p^{\texttt{trunc\_log}(p, n) + 1}.
+  \]
+\end{lemma}
+
+\section{Binomial coefficients and factorials}
+
+\begin{definition}[Binomial coefficient]
+  \label{def:binomial}
+  \rocq{mathcomp.boot.binomial.bin}
+  \rocqok
+  The binomial coefficient $\binom{n}{k}$, written \texttt{'C(n, k)}
+  in MathComp.
+\end{definition}
+
+\begin{definition}[Factorial]
+  \label{def:factorial}
+  \rocq{mathcomp.boot.binomial.factorial}
+  \rocqok
+  The factorial $n!$, written \texttt{n`!} in MathComp.
+\end{definition}
+
+\begin{lemma}[Legendre's formula]
+  \label{lem:logn_fact}
+  \uses{def:logn, def:factorial}
+  \rocq{mathcomp.boot.binomial.logn_fact}
+  \rocqok
+  Let $p$ be prime and $n \in \NN$. Then
+  \[
+    v_p(n!) = \sum_{k=1}^{n} \left\lfloor \frac{n}{p^k} \right\rfloor.
+  \]
+\end{lemma}
+
+\begin{lemma}[Factorial decomposition of binomials]
+  \label{lem:bin_fact}
+  \uses{def:binomial, def:factorial}
+  \rocq{mathcomp.boot.binomial.bin_fact}
+  \rocqok
+  For $k \leq n$,
+  \[
+    \binom{n}{k} \cdot k! \cdot (n-k)! = n!.
+  \]
+\end{lemma}
+
+\begin{lemma}[Positivity of binomial coefficients]
+  \label{lem:bin_gt0}
+  \uses{def:binomial}
+  \rocq{mathcomp.boot.binomial.bin_gt0}
+  \rocqok
+  $(0 < \binom{n}{k}) \iff (k \leq n)$.
+\end{lemma}
+
+\begin{lemma}[Positivity of factorial]
+  \label{lem:fact_gt0}
+  \uses{def:factorial}
+  \rocq{mathcomp.boot.binomial.fact_gt0}
+  \rocqok
+  $0 < n!$ for all $n$.
+\end{lemma}
+
+\section{Euclidean division}
+
+\begin{lemma}[Euclidean division]
+  \label{lem:divn_eq}
+  \rocq{mathcomp.boot.div.divn_eq}
+  \rocqok
+  For all $n, d$,
+  \[
+    n = (n \mathbin{/} d) \cdot d + n \bmod d.
+  \]
+\end{lemma}
+
+\begin{lemma}[Modulus bound]
+  \label{lem:ltn_mod}
+  \rocq{mathcomp.boot.div.ltn_mod}
+  \rocqok
+  $(n \bmod d < d) \iff (0 < d)$.
+\end{lemma}
+
+\begin{lemma}[Small dividend]
+  \label{lem:divn_small}
+  \rocq{mathcomp.boot.div.divn_small}
+  \rocqok
+  If $m < d$ then $m \mathbin{/} d = 0$.
+\end{lemma}
+
+\begin{lemma}[Modulus of sum with multiple]
+  \label{lem:modnMDl}
+  \rocq{mathcomp.boot.div.modnMDl}
+  \rocqok
+  $(p \cdot q + r) \bmod p = r \bmod p$.
+\end{lemma}
+
+\begin{lemma}[Division of sum with multiple]
+  \label{lem:divnMDl}
+  \rocq{mathcomp.boot.div.divnMDl}
+  \rocqok
+  For $0 < p$,
+  \[
+    (p \cdot q + r) \mathbin{/} p = q + r \mathbin{/} p.
+  \]
+\end{lemma}

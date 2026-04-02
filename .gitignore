@@ -1,0 +1,14 @@
+CoqMakefile
+CoqMakefile.conf
+.CoqMakefile.d
+theories/*.vo
+theories/*.vos
+theories/*.vok
+theories/*.glob
+theories/.*.aux
+.venv/
+blueprint/src/web/
+blueprint/src/web.paux
+blueprint/web/
+blueprint/rocq_decls
+.DS_Store

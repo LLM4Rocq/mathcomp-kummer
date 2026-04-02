@@ -1,0 +1,78 @@
+% Chapter 6: Digit sums and the alternative Kummer formulation
+
+\section{Digit extraction}
+
+\begin{definition}[Base-$p$ digit]
+  \label{def:digit}
+  \rocq{MathCompKummer.digit_sum.digit}
+  For $p \geq 2$, the $i$-th digit of $n$ in base $p$ is
+  \[
+    d_i(n) := \left\lfloor \frac{n}{p^i} \right\rfloor \bmod p.
+  \]
+\end{definition}
+
+\begin{lemma}[Digit bound]
+  \label{lem:digit_bound}
+  \uses{def:digit, lem:ltn_mod}
+  \rocq{MathCompKummer.digit_sum.digit_bound}
+  For $p \geq 2$,
+  \[
+    d_i(n) < p.
+  \]
+\end{lemma}
+
+\begin{lemma}[Digit representation]
+  \label{lem:digits_repr}
+  \uses{def:digit, lem:divn_eq}
+  \rocq{MathCompKummer.digit_sum.digits_repr}
+  For $p \geq 2$ and $n > 0$,
+  \[
+    n = \sum_{i=0}^{\texttt{trunc\_log}(p,n)} d_i(n) \cdot p^i.
+  \]
+\end{lemma}
+
+\section{Digit sum}
+
+\begin{definition}[Digit sum]
+  \label{def:digit_sum}
+  \uses{def:digit}
+  \rocq{MathCompKummer.digit_sum.digit_sum}
+  The sum of base-$p$ digits of $n$:
+  \[
+    \digitsum_p(n) := \sum_{i=0}^{\texttt{trunc\_log}(p,n)} d_i(n).
+  \]
+\end{definition}
+
+\section{Legendre via digit sums}
+
+\begin{lemma}[Legendre's formula via digit sums]
+  \label{lem:legendre_digit_sum}
+  \uses{lem:logn_fact, def:digit_sum}
+  \rocq{MathCompKummer.digit_sum.legendre_digit_sum}
+  For prime $p$ and $n > 0$,
+  \[
+    (p-1) \cdot v_p(n!) = n - \digitsum_p(n).
+  \]
+  \begin{proof}
+    From the digit representation $n = \sum_i d_i(n) \cdot p^i$
+    and Legendre's formula $v_p(n!) = \sum_{k \geq 1} \lfloor n/p^k \rfloor$.
+    A telescoping argument gives the result.
+  \end{proof}
+\end{lemma}
+
+\section{Kummer via digit sums}
+
+\begin{theorem}[Kummer's theorem — digit sum form]
+  \label{thm:kummer_digit_sum}
+  \uses{thm:kummer, lem:legendre_digit_sum}
+  \rocq{MathCompKummer.digit_sum.kummer_digit_sum}
+  For prime $p$ and $0 < k \leq n$,
+  \[
+    (p-1) \cdot v_p\!\binom{n}{k}
+    = \digitsum_p(k) + \digitsum_p(n-k) - \digitsum_p(n).
+  \]
+  \begin{proof}
+    Apply Lemma~\ref{lem:legendre_digit_sum} to $n!$, $k!$, and $(n-k)!$,
+    then use $v_p\binom{n}{k} = v_p(n!) - v_p(k!) - v_p((n-k)!)$.
+  \end{proof}
+\end{theorem}
