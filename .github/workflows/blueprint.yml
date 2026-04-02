@@ -15,7 +15,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-docs:
+    runs-on: ubuntu-latest
+    container:
+      image: coqorg/coq:8.20.0-ocaml-4.14.2-flambda
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MathComp
+        run: |
+          opam repo add coq-released https://coq.inria.fr/opam/released
+          opam install coq-mathcomp-ssreflect -y
+          eval $(opam env)
+
+      - name: Build project and generate coqdoc
+        run: |
+          eval $(opam env)
+          coq_makefile -f _CoqProject -o CoqMakefile
+          make -f CoqMakefile
+          make -f CoqMakefile html
+
+      - name: Upload coqdoc artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coqdoc-html
+          path: html/
+
+  build-blueprint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,45 +60,41 @@ jobs:
         run: |
           pip install rocqblueprint
 
-      - name: Set up OCaml and opam
-        uses: ocaml/setup-ocaml@v3
-        with:
-          ocaml-compiler: '5.2'
-
-      - name: Install Coq and MathComp via opam
-        run: |
-          opam repo add coq-released https://coq.inria.fr/opam/released
-          opam install coq.8.20.0 coq-mathcomp-ssreflect -y
-          eval $(opam env)
-
-      - name: Build project and generate coqdoc
-        run: |
-          eval $(opam env)
-          coq_makefile -f _CoqProject -o CoqMakefile
-          make -f CoqMakefile
-          make -f CoqMakefile html
-
       - name: Build blueprint
         run: |
           cd blueprint/src
           rocqblueprint web
 
-      - name: Combine blueprint and docs
-        run: |
-          cp -r html blueprint/src/web/doc
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload blueprint artifact
+        uses: actions/upload-artifact@v4
         with:
-          path: blueprint/src/web
+          name: blueprint-web
+          path: blueprint/src/web/
 
-  deploy:
-    needs: build
+  combine-and-deploy:
+    needs: [build-docs, build-blueprint]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Download blueprint
+        uses: actions/download-artifact@v4
+        with:
+          name: blueprint-web
+          path: site/
+
+      - name: Download coqdoc
+        uses: actions/download-artifact@v4
+        with:
+          name: coqdoc-html
+          path: site/doc/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
