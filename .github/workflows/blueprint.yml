@@ -34,6 +34,7 @@ jobs:
             endGroup
           script: |
             startGroup "Build project"
+              sudo chmod a+w CoqMakefile CoqMakefile.conf || true
               coq_makefile -f _CoqProject -o CoqMakefile
               make -f CoqMakefile
             endGroup
