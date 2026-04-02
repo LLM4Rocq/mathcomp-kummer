@@ -47,6 +47,7 @@ Build and serve the blueprint:
 
 ```bash
 source .venv/bin/activate
+python3 blueprint/update_status.py   # sync proof status from .v files
 cd blueprint/src
 rocqblueprint web
 cd web && python3 -m http.server 8080
@@ -69,4 +70,3 @@ The proof follows the chain:
 4. **Corollaries** (`logn_bin_extra.v`): upper bounds, vanishing results, prime power cases.
 5. **Digit sums** (`digit_sum.v`): alternative formulation via `(p-1) * logn p C(n,k) = s_p(k) + s_p(n-k) - s_p(n)`.
 
-See `blueprint_plan.md` and `kummer_mathcomp_plan.md` for detailed plans.

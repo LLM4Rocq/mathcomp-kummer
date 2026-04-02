@@ -6,6 +6,7 @@
   \label{lem:divn_add}
   \uses{lem:divn_eq, lem:ltn_mod, lem:divn_small, lem:divnMDl}
   \rocq{MathCompKummer.divn_carry.divn_add}
+  \rocqok
   Let $m > 0$. Then for all $a, b \in \NN$,
   \[
     \left\lfloor \frac{a+b}{m} \right\rfloor
@@ -15,6 +16,8 @@
   \]
   where $[\cdot]$ denotes the Iverson bracket.
   \begin{proof}
+    \proves{lem:divn_add}
+    \rocqok
     Write $a = qm + r$ and $b = q'm + r'$ with $0 \leq r, r' < m$.
     Then $a + b = (q + q')m + (r + r')$. Since $0 \leq r + r' < 2m$,
     we have $\lfloor(r+r')/m\rfloor \in \{0, 1\}$, and it equals $1$
@@ -26,42 +29,62 @@
   \label{lem:modn_add}
   \uses{lem:divn_eq, lem:modnMDl}
   \rocq{MathCompKummer.divn_carry.modn_add}
+  \rocqok
   For $m > 0$,
   \[
     (a + b) \bmod m = ((a \bmod m) + (b \bmod m)) \bmod m.
   \]
+  \begin{proof}
+    \proves{lem:modn_add}
+    \rocqok
+  \end{proof}
 \end{lemma}
 
 \begin{lemma}[Sum of remainders bound]
   \label{lem:divn_add_mod_bound}
   \uses{lem:ltn_mod}
   \rocq{MathCompKummer.divn_carry.divn_add_mod_bound}
+  \rocqok
   For $m > 0$,
   \[
     (a \bmod m) + (b \bmod m) < 2m.
   \]
+  \begin{proof}
+    \proves{lem:divn_add_mod_bound}
+    \rocqok
+  \end{proof}
 \end{lemma}
 
 \begin{lemma}[Division of sum of remainders]
   \label{lem:divn_add_mod_cases}
   \uses{lem:divn_add_mod_bound, lem:divn_small}
   \rocq{MathCompKummer.divn_carry.divn_add_mod_cases}
+  \rocqok
   For $m > 0$,
   \[
     \left\lfloor \frac{(a \bmod m) + (b \bmod m)}{m} \right\rfloor \leq 1.
   \]
+  \begin{proof}
+    \proves{lem:divn_add_mod_cases}
+    \rocqok
+  \end{proof}
 \end{lemma}
 
 \begin{lemma}[Carry is a boolean division]
   \label{lem:carry_is_div}
   \uses{lem:divn_add_mod_cases}
   \rocq{MathCompKummer.divn_carry.carry_is_div}
+  \rocqok
   For $m > 0$,
   \[
     [m \leq (a \bmod m) + (b \bmod m)]
     = \left\lfloor \frac{(a \bmod m) + (b \bmod m)}{m} \right\rfloor.
   \]
   (The right-hand side is $0$ or $1$.)
+  \begin{proof}
+    \proves{lem:carry_is_div}
+    \rocqok
+  \end{proof}
 \end{lemma}
 
 \section{The carry predicate}
@@ -70,6 +93,7 @@
   \label{def:carry}
   \uses{def:binomial}
   \rocq{MathCompKummer.divn_carry.carry}
+  \rocqok
   For a base $p$, position $i$, and natural numbers $a, b$, define
   \[
     \carry(p, i, a, b) \;:=\; [p^i \leq (a \bmod p^i) + (b \bmod p^i)].
@@ -82,6 +106,7 @@
   \label{lem:divn_add_carry}
   \uses{lem:divn_add, def:carry}
   \rocq{MathCompKummer.divn_carry.divn_add_carry}
+  \rocqok
   For $p > 0$ and $k \leq n$,
   \[
     \left\lfloor \frac{n}{p^i} \right\rfloor
@@ -90,6 +115,8 @@
     + \carry(p, i, k, n-k).
   \]
   \begin{proof}
+    \proves{lem:divn_add_carry}
+    \rocqok
     Write $n = k + (n-k)$ and apply Lemma~\ref{lem:divn_add} with $m = p^i$.
   \end{proof}
 \end{lemma}
@@ -100,6 +127,7 @@
   \label{lem:sum_divn_add_carry}
   \uses{lem:divn_add_carry}
   \rocq{MathCompKummer.divn_carry.sum_divn_add_carry}
+  \rocqok
   For prime $p$, $k \leq n$, and $b > \texttt{trunc\_log}(p, n)$,
   \[
     \sum_{i=1}^{b} \left\lfloor \frac{n}{p^i} \right\rfloor
@@ -108,6 +136,8 @@
     + \sum_{i=1}^{b} \carry(p, i, k, n-k).
   \]
   \begin{proof}
+    \proves{lem:sum_divn_add_carry}
+    \rocqok
     Apply Lemma~\ref{lem:divn_add_carry} pointwise for each
     $i \in \{1, \ldots, b\}$ and use linearity of summation.
   \end{proof}

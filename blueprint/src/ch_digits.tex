@@ -5,6 +5,7 @@
 \begin{definition}[Base-$p$ digit]
   \label{def:digit}
   \rocq{MathCompKummer.digit_sum.digit}
+  \rocqok
   For $p \geq 2$, the $i$-th digit of $n$ in base $p$ is
   \[
     d_i(n) := \left\lfloor \frac{n}{p^i} \right\rfloor \bmod p.
@@ -15,20 +16,30 @@
   \label{lem:digit_bound}
   \uses{def:digit, lem:ltn_mod}
   \rocq{MathCompKummer.digit_sum.digit_bound}
+  \rocqok
   For $p \geq 2$,
   \[
     d_i(n) < p.
   \]
+  \begin{proof}
+    \proves{lem:digit_bound}
+    \rocqok
+  \end{proof}
 \end{lemma}
 
 \begin{lemma}[Digit representation]
   \label{lem:digits_repr}
   \uses{def:digit, lem:divn_eq}
   \rocq{MathCompKummer.digit_sum.digits_repr}
+  \rocqok
   For $p \geq 2$ and $n > 0$,
   \[
     n = \sum_{i=0}^{\texttt{trunc\_log}(p,n)} d_i(n) \cdot p^i.
   \]
+  \begin{proof}
+    \proves{lem:digits_repr}
+    \rocqok
+  \end{proof}
 \end{lemma}
 
 \section{Digit sum}
@@ -37,6 +48,7 @@
   \label{def:digit_sum}
   \uses{def:digit}
   \rocq{MathCompKummer.digit_sum.digit_sum}
+  \rocqok
   The sum of base-$p$ digits of $n$:
   \[
     \digitsum_p(n) := \sum_{i=0}^{\texttt{trunc\_log}(p,n)} d_i(n).
@@ -49,11 +61,14 @@
   \label{lem:legendre_digit_sum}
   \uses{lem:logn_fact, def:digit_sum}
   \rocq{MathCompKummer.digit_sum.legendre_digit_sum}
+  \rocqok
   For prime $p$ and $n > 0$,
   \[
     (p-1) \cdot v_p(n!) = n - \digitsum_p(n).
   \]
   \begin{proof}
+    \proves{lem:legendre_digit_sum}
+    \rocqok
     From the digit representation $n = \sum_i d_i(n) \cdot p^i$
     and Legendre's formula $v_p(n!) = \sum_{k \geq 1} \lfloor n/p^k \rfloor$.
     A telescoping argument gives the result.
@@ -66,12 +81,15 @@
   \label{thm:kummer_digit_sum}
   \uses{thm:kummer, lem:legendre_digit_sum}
   \rocq{MathCompKummer.digit_sum.kummer_digit_sum}
+  \rocqok
   For prime $p$ and $0 < k \leq n$,
   \[
     (p-1) \cdot v_p\!\binom{n}{k}
     = \digitsum_p(k) + \digitsum_p(n-k) - \digitsum_p(n).
   \]
   \begin{proof}
+    \proves{thm:kummer_digit_sum}
+    \rocqok
     Apply Lemma~\ref{lem:legendre_digit_sum} to $n!$, $k!$, and $(n-k)!$,
     then use $v_p\binom{n}{k} = v_p(n!) - v_p(k!) - v_p((n-k)!)$.
   \end{proof}

@@ -6,11 +6,14 @@
   \label{lem:divn_small_pow}
   \uses{lem:trunc_log_ltn, lem:divn_small}
   \rocq{MathCompKummer.logn_bin.divn_small_pow}
+  \rocqok
   For $p \geq 2$ and $i > \texttt{trunc\_log}(p, n)$,
   \[
     \left\lfloor \frac{n}{p^i} \right\rfloor = 0.
   \]
   \begin{proof}
+    \proves{lem:divn_small_pow}
+    \rocqok
     By \texttt{trunc\_log\_ltn}, $n < p^{\texttt{trunc\_log}(p,n)+1} \leq p^i$.
     Apply \texttt{divn\_small}.
   \end{proof}
@@ -20,11 +23,14 @@
   \label{lem:logn_fact_ext}
   \uses{lem:logn_fact, lem:divn_small_pow}
   \rocq{MathCompKummer.logn_bin.logn_fact_ext}
+  \rocqok
   For prime $p$ and $b > \texttt{trunc\_log}(p, n)$,
   \[
     v_p(n!) = \sum_{i=1}^{b} \left\lfloor \frac{n}{p^i} \right\rfloor.
   \]
   \begin{proof}
+    \proves{lem:logn_fact_ext}
+    \rocqok
     By Lemma~\ref{lem:logn_fact}, $v_p(n!) = \sum_{i=1}^{n} \lfloor n/p^i \rfloor$.
     The extra terms for $i > \texttt{trunc\_log}(p,n)$ vanish by
     Lemma~\ref{lem:divn_small_pow}.
@@ -37,11 +43,14 @@
   \label{lem:logn_bin}
   \uses{lem:bin_fact, lem:lognM, lem:bin_gt0, lem:fact_gt0}
   \rocq{MathCompKummer.logn_bin.logn_bin}
+  \rocqok
   For prime $p$ and $k \leq n$,
   \[
     v_p\!\binom{n}{k} = v_p(n!) - v_p(k!) - v_p((n-k)!).
   \]
   \begin{proof}
+    \proves{lem:logn_bin}
+    \rocqok
     From $\binom{n}{k} \cdot k! \cdot (n-k)! = n!$
     (Lemma~\ref{lem:bin_fact}), apply $v_p$ to both sides using
     multiplicativity (Lemma~\ref{lem:lognM}), noting that all factors
@@ -53,6 +62,7 @@
   \label{lem:logn_bin_via_sums}
   \uses{lem:logn_bin, lem:logn_fact_ext}
   \rocq{MathCompKummer.logn_bin.logn_bin_via_sums}
+  \rocqok
   For prime $p$, $k \leq n$, and $b > \texttt{trunc\_log}(p, n)$,
   \[
     v_p\!\binom{n}{k}
@@ -61,6 +71,8 @@
     - \sum_{i=1}^{b} \left\lfloor \frac{n-k}{p^i} \right\rfloor.
   \]
   \begin{proof}
+    \proves{lem:logn_bin_via_sums}
+    \rocqok
     Substitute Lemma~\ref{lem:logn_fact_ext} (applied to $n$, $k$,
     and $n-k$, all with the same bound $b$) into
     Lemma~\ref{lem:logn_bin}.

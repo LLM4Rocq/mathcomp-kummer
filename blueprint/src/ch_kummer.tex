@@ -4,6 +4,7 @@
   \label{thm:kummer}
   \uses{lem:logn_bin_via_sums, lem:sum_divn_add_carry}
   \rocq{MathCompKummer.logn_bin.kummer}
+  \rocqok
   Let $p$ be prime and $0 \leq k \leq n$. Then
   \[
     v_p\!\binom{n}{k} = \sum_{i=1}^{b} \carry(p, i, k, n-k),
@@ -12,6 +13,8 @@
   Equivalently, the $p$-adic valuation of $\binom{n}{k}$ equals
   the number of carries when adding $k$ and $n-k$ in base~$p$.
   \begin{proof}
+    \proves{thm:kummer}
+    \rocqok
     By Lemma~\ref{lem:logn_bin_via_sums},
     \[
       v_p\!\binom{n}{k}
@@ -28,6 +31,7 @@
   \label{thm:kummer_card}
   \uses{thm:kummer}
   \rocq{MathCompKummer.logn_bin.kummer_card}
+  \rocqok
   For prime $p$, $k \leq n$, and $b > \texttt{trunc\_log}(p, n)$,
   \[
     v_p\!\binom{n}{k}
@@ -35,6 +39,8 @@
       \;\big|\; \carry(p, i, k, n-k) \bigr\}.
   \]
   \begin{proof}
+    \proves{thm:kummer_card}
+    \rocqok
     Since $\carry$ is boolean, summing it over $\{1, \ldots, b\}$
     equals the cardinality of the set where it holds.
   \end{proof}

@@ -4,11 +4,14 @@
   \label{lem:logn_bin_le_trunc_log}
   \uses{thm:kummer, lem:trunc_log_bounds}
   \rocq{MathCompKummer.logn_bin_extra.logn_bin_le_trunc_log}
+  \rocqok
   For prime $p$ and $k \leq n$,
   \[
     v_p\!\binom{n}{k} \leq \texttt{trunc\_log}(p, n).
   \]
   \begin{proof}
+    \proves{lem:logn_bin_le_trunc_log}
+    \rocqok
     By Kummer's theorem, $v_p\binom{n}{k}$ counts carries among at
     most $\texttt{trunc\_log}(p, n)$ positions.
   \end{proof}
@@ -18,11 +21,14 @@
   \label{lem:logn_bin_eq0}
   \uses{thm:kummer}
   \rocq{MathCompKummer.logn_bin_extra.logn_bin_eq0}
+  \rocqok
   For prime $p$ with $n < p$ and $k \leq n$,
   \[
     v_p\!\binom{n}{k} = 0.
   \]
   \begin{proof}
+    \proves{lem:logn_bin_eq0}
+    \rocqok
     When $n < p$, $\texttt{trunc\_log}(p, n) = 0$, so there are no
     carry positions.
   \end{proof}
@@ -32,11 +38,14 @@
   \label{lem:logn_bin_le1}
   \uses{thm:kummer, lem:trunc_log_bounds}
   \rocq{MathCompKummer.logn_bin_extra.logn_bin_le1}
+  \rocqok
   For prime $p$ with $p^2 > n$ and $k \leq n$,
   \[
     v_p\!\binom{n}{k} \leq 1.
   \]
   \begin{proof}
+    \proves{lem:logn_bin_le1}
+    \rocqok
     Since $p^2 > n$, $\texttt{trunc\_log}(p, n) \leq 1$, so there
     is at most one carry position.
   \end{proof}
@@ -46,21 +55,29 @@
   \label{lem:logn_le_logn_bin_add}
   \uses{lem:logn_bin, lem:bin_fact}
   \rocq{MathCompKummer.logn_bin_extra.logn_le_logn_bin_add}
+  \rocqok
   For prime $p$, $k \leq n$, and $0 < k$,
   \[
     v_p(n) \leq v_p\!\binom{n}{k} + v_p(k).
   \]
+  \begin{proof}
+    \proves{lem:logn_le_logn_bin_add}
+    \rocqok
+  \end{proof}
 \end{lemma}
 
 \begin{lemma}[Valuation of $\binom{p^m}{k}$]
   \label{lem:logn_bin_prime_pow}
   \uses{thm:kummer, lem:pfactorK}
   \rocq{MathCompKummer.logn_bin_extra.logn_bin_prime_pow}
+  \rocqok
   For prime $p$, $0 < k \leq p^m$,
   \[
     v_p\!\binom{p^m}{k} + v_p(k) = m.
   \]
   \begin{proof}
+    \proves{lem:logn_bin_prime_pow}
+    \rocqok
     Combine Kummer's theorem with
     Lemma~\ref{lem:pfactorK}.
   \end{proof}
@@ -70,11 +87,14 @@
   \label{lem:logn2_fact_lt}
   \uses{lem:logn_fact}
   \rocq{MathCompKummer.logn_bin_extra.logn2_fact_lt}
+  \rocqok
   For $n > 0$,
   \[
     v_2(n!) < n.
   \]
   \begin{proof}
+    \proves{lem:logn2_fact_lt}
+    \rocqok
     By Legendre's formula, $v_2(n!) = \sum_{k \geq 1} \lfloor n/2^k \rfloor
     < n \cdot \sum_{k \geq 1} 2^{-k} = n$.
   \end{proof}
