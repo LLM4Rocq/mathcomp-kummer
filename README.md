@@ -53,10 +53,12 @@ rocqblueprint web
 cd web && python3 -m http.server 8080
 ```
 
-Then open:
+Then open locally:
 
 - **Blueprint**: http://localhost:8080/index.html
 - **Dependency graph**: http://localhost:8080/dep_graph_document.html
+
+The blueprint is also deployed at: https://llm4rocq.github.io/mathcomp-kummer/
 
 > The dependency graph requires a local HTTP server because it uses WebAssembly (`.wasm` files), which browsers block when opened via `file://`.
 

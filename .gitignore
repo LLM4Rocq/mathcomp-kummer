@@ -12,3 +12,5 @@ blueprint/src/web.paux
 blueprint/web/
 blueprint/rocq_decls
 .DS_Store
+.tmp*.aux
+rocq_mcp_cache_*.v
