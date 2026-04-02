@@ -40,6 +40,7 @@ jobs:
 
       - name: Install Coq and MathComp via opam
         run: |
+          opam repo add coq-released https://coq.inria.fr/opam/released
           opam install coq.8.20.0 coq-mathcomp-ssreflect -y
           eval $(opam env)
 
