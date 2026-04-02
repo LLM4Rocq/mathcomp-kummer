@@ -38,8 +38,8 @@ Lemma carry_is_div a b m : 0 < m ->
   (m <= a %% m + b %% m) = ((a %% m + b %% m) %/ m == 1).
 Proof.
 move=> hm; set x := _ + _; apply/idP/idP => [hle | /eqP hd].
-- apply/eqP; apply: anti_leq.
-  by rewrite leq_divRL // mul1n hle divn_add_mod_cases.
+- by apply/eqP/anti_leq; rewrite leq_divRL // mul1n hle
+     divn_add_mod_cases.
 - by rewrite -(mul1n m) -hd -leq_divRL.
 Qed.
 
@@ -51,8 +51,7 @@ Lemma divn_add_carry p i n k :
   0 < p -> k <= n ->
   n %/ p ^ i = k %/ p ^ i + (n - k) %/ p ^ i + carry p i k (n - k).
 Proof.
-move=> hp hkn; have hpi : 0 < p ^ i by rewrite expn_gt0 hp.
-by rewrite /carry -divn_add // subnKC.
+by move=> hp hkn; rewrite /carry -divn_add ?expn_gt0 ?hp // subnKC.
 Qed.
 
 (** ** Summed carry-count identity *)
