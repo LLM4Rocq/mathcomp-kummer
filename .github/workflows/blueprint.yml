@@ -33,10 +33,31 @@ jobs:
         run: |
           pip install rocqblueprint
 
+      - name: Set up OCaml and opam
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: '5.2'
+
+      - name: Install Coq and MathComp via opam
+        run: |
+          opam install coq.8.20.0 coq-mathcomp-ssreflect -y
+          eval $(opam env)
+
+      - name: Build project and generate coqdoc
+        run: |
+          eval $(opam env)
+          coq_makefile -f _CoqProject -o CoqMakefile
+          make -f CoqMakefile
+          make -f CoqMakefile html
+
       - name: Build blueprint
         run: |
           cd blueprint/src
           rocqblueprint web
+
+      - name: Combine blueprint and docs
+        run: |
+          cp -r html blueprint/src/web/doc
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
