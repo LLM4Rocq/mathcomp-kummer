@@ -17,24 +17,31 @@ concurrency:
 jobs:
   build-docs:
     runs-on: ubuntu-latest
-    container:
-      image: coqorg/coq:8.20
-      options: --user root
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install MathComp
-        run: |
-          opam repo add coq-released https://coq.inria.fr/opam/released
-          opam install coq-mathcomp-ssreflect -y
-          eval $(opam env)
-
-      - name: Build project and generate coqdoc
-        run: |
-          eval $(opam env)
-          coq_makefile -f _CoqProject -o CoqMakefile
-          make -f CoqMakefile
-          make -f CoqMakefile html
+      - uses: coq-community/docker-coq-action@v1
+        with:
+          coq_version: '8.20'
+          ocaml_version: '4.14-flambda'
+          before_install: |
+            startGroup "Add coq-released repo"
+              opam repo add coq-released https://coq.inria.fr/opam/released
+            endGroup
+          before_script: |
+            startGroup "Install MathComp"
+              opam install coq-mathcomp-ssreflect -y
+            endGroup
+          script: |
+            startGroup "Build project"
+              coq_makefile -f _CoqProject -o CoqMakefile
+              make -f CoqMakefile
+            endGroup
+            startGroup "Generate coqdoc"
+              make -f CoqMakefile html
+            endGroup
+          after_script: |
+            sudo chown -R $(id -u):$(id -g) html/
 
       - name: Upload coqdoc artifact
         uses: actions/upload-artifact@v4
