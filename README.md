@@ -1,6 +1,6 @@
 # Kummer's theorem in MathComp
 
-A formalization of [Kummer's theorem](https://en.wikipedia.org/wiki/Kummer%27s_theorem) in the [MathComp](https://math-comp.github.io/) library, with a [rocqblueprint](https://github.com/PatrickMassot/rocqblueprint)-powered dependency graph tracking formalization progress.
+A formalization of [Kummer's theorem](https://en.wikipedia.org/wiki/Kummer%27s_theorem) in the [MathComp](https://math-comp.github.io/) library, with a [rocqblueprint](https://github.com/reiniscirpons/rocqblueprint)-powered dependency graph tracking formalization progress.
 
 **Kummer's theorem** states that the p-adic valuation of the binomial coefficient C(n, k) equals the number of carries when adding k and n−k in base p.
 
